@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receive Payment</title>
+  </head>
+  <body>
+    <form>
+      <script src="https://checkout.flutterwave.com/v3.js"></script>
+      <button type="button" onClick="makePayment()">Pay Now</button>
+    </form>
+
+    <script>
+      function makePayment() {
+        FlutterwaveCheckout({
+          public_key: "FLWPUBK_TEST-47f78697b8e7f3a616e8b428af96d4a4-X",
+          tx_ref: "hooli-tx-1920bbtyt",
+          amount: 1000,
+          currency: "NGN",
+          country: "NG",
+          payment_options: "card",
+
+          // specified redirect URL
+          redirect_url: "http://localhost:4001/response",
+
+          // use customer details if user is not logged in, else add user_id to the request
+          customer: {
+            email: "demomail@gmail.com",
+            phone_number: "08088098622",
+            name: "Idris Olubisi",
+          },
+          callback: function (data) {
+            console.log(data);
+          },
+          onclose: function () {
+            // close modal
+          },
+          customizations: {
+            title: "Flutterwave Demo",
+            description: "Flutterwave Payment Demo",
+            logo: "https://cdn.iconscout.com/icon/premium/png-256-thumb/payment-2193968-1855546.png",
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
